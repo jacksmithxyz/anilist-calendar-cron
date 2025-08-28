@@ -26,19 +26,46 @@ function getFilteredAnime(mediaList) {
   return filteredAnime;
 }
 
-const response = await fetch(ANILIST_BASE_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-  },
-  body: JSON.stringify({
-    query: QUERY,
-  }),
-});
-let mediaList = await response.json();
-mediaList = mediaList.data.Page.media;
+/** Returns a single page of media entries from the AniList API
+ * @param variables - An object containing a key-value pair with a page number
+ * @returns list of media objects
+ */
 
-const filteredAnime = getFilteredAnime(mediaList);
+async function fetchUpcomingAnimePage(variables) {
+  const response = await fetch(ANILIST_BASE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify({
+      query: QUERY,
+      variables,
+    }),
+  });
+  const pageData = await response.json();
 
-console.log(filteredAnime);
+  return pageData;
+}
+
+async function main() {
+  const queryVariables = {
+    page: 1,
+  };
+  const initalResponse = await fetchUpcomingAnimePage(queryVariables);
+  let hasNextPage = initalResponse.data.Page.pageInfo.hasNextPage;
+
+  const mediaList = initalResponse.data.Page.media;
+
+  while (hasNextPage) {
+    queryVariables.page++;
+    const response = await fetchUpcomingAnimePage(queryVariables);
+    hasNextPage = response.data.Page.pageInfo.hasNextPage;
+    mediaList.push(...response.data.Page.media)
+  }
+
+  const filteredAnime = getFilteredAnime(mediaList);
+  console.log(filteredAnime;
+}
+
+main();
