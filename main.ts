@@ -1,16 +1,5 @@
 import { ANILIST_BASE_URL, QUERY } from "./consts.ts";
 
-/*
-export function add(a: number, b: number): number {
-  return a + b;
-}
-
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
-*/
-
 /** Returns all anime which have a specified start date
  * @param mediaList - list of media objects returned from the AniList API
  * @returns list of media objects which have a specified start date
