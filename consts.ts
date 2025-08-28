@@ -1,5 +1,5 @@
 export const ANILIST_BASE_URL = "https://graphql.anilist.co"
-export const QUERY = `query UpcomingAnimePage($page: Int = 1) {
+export const QUERY = `query UpcomingAnimePage($page: Int) {
   Page(page: $page, perPage: 50) {
     pageInfo {
       total
