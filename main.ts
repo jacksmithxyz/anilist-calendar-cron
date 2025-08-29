@@ -16,11 +16,11 @@ function getFilteredAnime(mediaList) {
 }
 
 /** Returns a single page of media entries from the AniList API
- * @param variables - An object containing a key-value pair with a page number
+ * @param queryVariables - An object containing a key-value pair with a page number
  * @returns list of media objects
  */
 
-async function fetchUpcomingAnimePage(variables) {
+async function fetchUpcomingAnimePage(queryVariables) {
   const response = await fetch(ANILIST_BASE_URL, {
     method: "POST",
     headers: {
@@ -29,7 +29,7 @@ async function fetchUpcomingAnimePage(variables) {
     },
     body: JSON.stringify({
       query: QUERY,
-      variables,
+      variables: queryVariables,
     }),
   });
   const pageData = await response.json();
@@ -54,7 +54,7 @@ async function main() {
   }
 
   const filteredAnime = getFilteredAnime(mediaList);
-  console.log(filteredAnime;
+  console.log(filteredAnime);
 }
 
 main();
