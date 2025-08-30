@@ -1,11 +1,12 @@
 import { ANILIST_BASE_URL, QUERY } from "./consts.ts";
+import { AnilistResponse, MediaEntry } from "./types.ts";
 
 /** Returns all anime which have a specified start date
  * @param mediaList - list of media objects returned from the AniList API
  * @returns list of media objects which have a specified start date
  */
 
-function getFilteredAnime(mediaList) {
+function getFilteredAnime(mediaList: MediaEntry[]) {
   const filteredAnime = [];
   for (const anime of mediaList) {
     if (anime.startDate.day != null) {
@@ -32,7 +33,7 @@ async function fetchUpcomingAnimePage(queryVariables) {
       variables: queryVariables,
     }),
   });
-  const pageData = await response.json();
+  const pageData: AnilistResponse = await response.json();
 
   return pageData;
 }
