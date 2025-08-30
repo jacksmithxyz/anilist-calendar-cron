@@ -51,7 +51,7 @@ async function main() {
     queryVariables.page++;
     const response = await fetchUpcomingAnimePage(queryVariables);
     hasNextPage = response.data.Page.pageInfo.hasNextPage;
-    mediaList.push(...response.data.Page.media)
+    mediaList.push(...response.data.Page.media);
   }
 
   const filteredAnime = getFilteredAnime(mediaList);
