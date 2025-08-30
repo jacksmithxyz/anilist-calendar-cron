@@ -27,12 +27,6 @@ export const QUERY = `query UpcomingAnimePage($page: Int) {
       coverImage {
         large
       }
-      streamingEpisodes {
-        title
-        thumbnail
-        url
-        site
-      }
       siteUrl
     }
   }
