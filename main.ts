@@ -1,5 +1,5 @@
 import { ANILIST_BASE_URL, QUERY } from "./consts.ts";
-import { AnilistResponse, MediaEntry } from "./types.ts";
+import { AnilistResponse, DbAnimeEntry, MediaEntry } from "./types.ts";
 
 /** Returns all anime which have a specified start date
  * @param mediaList - list of media objects returned from the AniList API
@@ -10,10 +10,31 @@ function getFilteredAnime(mediaList: MediaEntry[]) {
   const filteredAnime = [];
   for (const anime of mediaList) {
     if (anime.startDate.day != null) {
-      filteredAnime.push(anime);
+      const dbEntry = toAnimeDbEntry(anime)
+      filteredAnime.push(dbEntry);
     }
   }
   return filteredAnime;
+}
+
+/** Converts MediaEntry from AniList response to a format suitable for database storage
+ */
+
+function toAnimeDbEntry(media: MediaEntry) {
+  const dbEntry: DbAnimeEntry = {};
+
+  dbEntry.anilistId = media.id
+  dbEntry.title = media.title.english || media.title.romaji;
+  dbEntry.releaseDate = new Date(Date.UTC(
+    media.startDate.year,
+    media.startDate.month !== undefined ? media.startDate.month - 1 : 0,
+    media.startDate.day,
+  ));
+  dbEntry.description = media.description
+  dbEntry.siteUrl = media.siteUrl
+  dbEntry.coverImage = media.coverImage
+
+  return dbEntry
 }
 
 /** Returns a single page of media entries from the AniList API
@@ -55,7 +76,7 @@ async function main() {
   }
 
   const filteredAnime = getFilteredAnime(mediaList);
-  console.log(filteredAnime);
+  console.log(filteredAnime)
 }
 
 main();
