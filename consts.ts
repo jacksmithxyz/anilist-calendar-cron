@@ -1,4 +1,4 @@
-export const ANILIST_BASE_URL = "https://graphql.anilist.co"
+export const ANILIST_BASE_URL = "https://graphql.anilist.co";
 export const QUERY = `query UpcomingAnimePage($page: Int) {
   Page(page: $page, perPage: 50) {
     pageInfo {
@@ -31,4 +31,4 @@ export const QUERY = `query UpcomingAnimePage($page: Int) {
     }
   }
 }
-`
+`;
