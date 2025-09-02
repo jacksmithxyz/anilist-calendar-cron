@@ -31,8 +31,8 @@ function toAnimeDbEntry(media: MediaEntry) {
     media.startDate.day,
   ));
   dbEntry.description = media.description
-  dbEntry.siteUrl = media.siteUrl
-  dbEntry.coverImage = media.coverImage
+  dbEntry.anilistUrl = media.siteUrl
+  dbEntry.coverImage = media.coverImage.large
 
   return dbEntry
 }
