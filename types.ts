@@ -5,10 +5,10 @@
 export interface DbAnimeEntry {
   anilistId: number;
   title: string;
-  releaseDate: Date;
   description: string;
+  releaseDate: Date;
   coverImage: string;
-  siteUrl: string;
+  anilistUrl: string;
 }
 
 interface StartDate {
@@ -38,7 +38,9 @@ export interface MediaEntry {
   };
   startDate: StartDate;
   description: string;
-  coverImage: string;
+  coverImage: {
+    large: string;
+  }
   siteUrl: string;
 }
 
