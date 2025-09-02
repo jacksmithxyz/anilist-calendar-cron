@@ -10,6 +10,7 @@ export const QUERY = `query UpcomingAnimePage($page: Int) {
     media(
       type: ANIME
       status: NOT_YET_RELEASED
+      isAdult: false
       sort: [POPULARITY_DESC]
       startDate_greater: 20000000
     ) {
